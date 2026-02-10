@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SARS Testing Tools</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>SARS Testing Tools</h1>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" role="tab" data-tab="sa-id">SA ID</button>
+      <button class="tab" role="tab" data-tab="income-tax">Income Tax</button>
+      <button class="tab" role="tab" data-tab="company-reg">Company Reg</button>
+      <button class="tab" role="tab" data-tab="paye">PAYE</button>
+      <button class="tab" role="tab" data-tab="uif">UIF</button>
+      <button class="tab" role="tab" data-tab="sdl">SDL</button>
+    </nav>
+
+    <!-- SA ID Panel -->
+    <div class="panel active" id="panel-sa-id" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Year From
+            <input type="number" id="said-year-from" value="1950" min="1900" max="2025">
+          </label>
+          <label>Year To
+            <input type="number" id="said-year-to" value="2005" min="1900" max="2025">
+          </label>
+        </div>
+        <div class="filter-row">
+          <label>Specific Date
+            <input type="date" id="said-specific-date">
+          </label>
+        </div>
+        <div class="filter-row">
+          <label>Gender
+            <select id="said-gender">
+              <option value="any">Any</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </label>
+          <label>Citizenship
+            <select id="said-citizenship">
+              <option value="citizen">SA Citizen</option>
+              <option value="resident">Permanent Resident</option>
+              <option value="any">Any</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-row">
+          <label>Count
+            <select id="said-count">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="sa-id">Generate</button>
+      <div class="results" id="results-sa-id"></div>
+    </div>
+
+    <!-- Income Tax Panel -->
+    <div class="panel" id="panel-income-tax" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Starting Digit
+            <select id="itax-start">
+              <option value="any">Any</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="9">9</option>
+            </select>
+          </label>
+          <label>Count
+            <select id="itax-count">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="income-tax">Generate</button>
+      <div class="results" id="results-income-tax"></div>
+    </div>
+
+    <!-- Company Reg Panel -->
+    <div class="panel" id="panel-company-reg" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Year From
+            <input type="number" id="creg-year-from" value="2000" min="1900" max="2025">
+          </label>
+          <label>Year To
+            <input type="number" id="creg-year-to" value="2024" min="1900" max="2025">
+          </label>
+        </div>
+        <div class="filter-row">
+          <label>Type Code
+            <select id="creg-type">
+              <option value="any">Any</option>
+              <option value="06">06 - External Company</option>
+              <option value="07">07 - Pty Ltd</option>
+              <option value="08">08 - Ltd (Public)</option>
+              <option value="09">09 - Assoc. Not for Gain (S21)</option>
+              <option value="10">10 - Close Corporation</option>
+              <option value="11">11 - Foreign External Co.</option>
+              <option value="21">21 - Inc. (S21 Co.)</option>
+              <option value="22">22 - State-Owned</option>
+              <option value="23">23 - Personal Liability (Inc)</option>
+              <option value="24">24 - Co-operative</option>
+              <option value="25">25 - Primary Co-operative</option>
+              <option value="26">26 - Secondary Co-operative</option>
+              <option value="30">30 - Conversion</option>
+              <option value="31">31 - Domesticated</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-row">
+          <label>Count
+            <select id="creg-count">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="company-reg">Generate</button>
+      <div class="results" id="results-company-reg"></div>
+    </div>
+
+    <!-- PAYE Panel -->
+    <div class="panel" id="panel-paye" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Starting Digit
+            <select id="paye-start">
+              <option value="any">Any</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="7">7</option>
+              <option value="9">9</option>
+            </select>
+          </label>
+          <label>Count
+            <select id="paye-count">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="paye">Generate</button>
+      <div class="results" id="results-paye"></div>
+    </div>
+
+    <!-- UIF Panel -->
+    <div class="panel" id="panel-uif" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Count
+            <select id="uif-count">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="uif">Generate</button>
+      <div class="results" id="results-uif"></div>
+    </div>
+
+    <!-- SDL Panel -->
+    <div class="panel" id="panel-sdl" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Count
+            <select id="sdl-count">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="sdl">Generate</button>
+      <div class="results" id="results-sdl"></div>
+    </div>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
