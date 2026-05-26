@@ -7,6 +7,64 @@ import { generateSDL } from './js/generators/sdl.js';
 import { generateLabourUIF } from './js/generators/labour-uif.js';
 import { copyToClipboard } from './js/utils/helpers.js';
 
+// --- All-view state and helpers --------------------------------------------
+
+const ALL_TYPES = ['sa-id', 'income-tax', 'company-reg', 'paye', 'uif', 'sdl', 'labour-uif'];
+
+function allRow(type) {
+  return document.querySelector(`.all-row[data-type="${type}"]`);
+}
+
+function setRowValue(type, value) {
+  const row = allRow(type);
+  if (!row) return;
+  const valEl = row.querySelector('.all-row-value');
+  valEl.textContent = value ?? '';
+  const hasValue = Boolean(value);
+  row.querySelector('.btn-row-copy').disabled = !hasValue;
+  row.querySelector('.btn-row-paste').disabled = !hasValue;
+}
+
+function getRowValue(type) {
+  const row = allRow(type);
+  const text = row?.querySelector('.all-row-value').textContent ?? '';
+  return text.trim() ? text : null;
+}
+
+function generateOne(type) {
+  // Per-row generation in the All view always uses count: 1 and default filters.
+  switch (type) {
+    case 'sa-id':       return generateSAID({ count: 1 })[0];
+    case 'income-tax':  return generateIncomeTax({ count: 1 })[0];
+    case 'company-reg': return generateCompanyReg({ count: 1 })[0];
+    case 'paye':        return generatePAYE({ count: 1 })[0];
+    case 'uif':         return generateUIF({ count: 1 })[0];
+    case 'sdl':         return generateSDL({ count: 1 })[0];
+    case 'labour-uif':  return generateLabourUIF({ count: 1 })[0];
+    default:            return null;
+  }
+}
+
+/**
+ * Generates a fresh PAYE/UIF/SDL triple that shares a 9-character body.
+ * Updates all three rows in lock-step.
+ */
+function regenerateEmployerTriple() {
+  const paye = generatePAYE({ count: 1 })[0];
+  const body = paye.slice(1);
+  setRowValue('paye', paye);
+  setRowValue('uif', `U${body}`);
+  setRowValue('sdl', `L${body}`);
+}
+
+function regenerateRow(type) {
+  if (type === 'paye' || type === 'uif' || type === 'sdl') {
+    regenerateEmployerTriple();
+  } else {
+    setRowValue(type, generateOne(type));
+  }
+}
+
 // Tab switching
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -23,6 +81,24 @@ document.querySelectorAll('.btn-generate').forEach(btn => {
     const type = btn.dataset.generator;
     const results = generate(type);
     renderResults(type, results);
+  });
+});
+
+// --- All-view button handlers ----------------------------------------------
+
+document.querySelectorAll('.all-row .btn-row-generate').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.closest('.all-row').dataset.type;
+    regenerateRow(type);
+  });
+});
+
+document.querySelectorAll('.all-row .btn-row-copy').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.closest('.all-row').dataset.type;
+    const value = getRowValue(type);
+    if (!value) return;
+    copyToClipboard(value).then(() => flashCopied(btn));
   });
 });
 
