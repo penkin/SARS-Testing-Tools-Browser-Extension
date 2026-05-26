@@ -13,7 +13,8 @@
     </header>
 
     <nav class="tabs" role="tablist">
-      <button class="tab active" role="tab" data-tab="sa-id">SA ID</button>
+      <button class="tab active" role="tab" data-tab="all">All</button>
+      <button class="tab" role="tab" data-tab="sa-id">SA ID</button>
       <button class="tab" role="tab" data-tab="income-tax">Income Tax</button>
       <button class="tab" role="tab" data-tab="company-reg">Company Reg</button>
       <button class="tab" role="tab" data-tab="paye">PAYE</button>
@@ -22,8 +23,82 @@
       <button class="tab" role="tab" data-tab="labour-uif">Labour UIF</button>
     </nav>
 
+    <!-- All Panel -->
+    <div class="panel active" id="panel-all" role="tabpanel">
+      <div class="all-actions">
+        <button class="btn-generate-all">Generate All</button>
+        <button class="btn-paste-all">Paste All in form</button>
+      </div>
+      <div class="all-rows">
+        <div class="all-row" data-type="sa-id">
+          <div class="all-row-label">SA ID</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Generate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="income-tax">
+          <div class="all-row-label">Income Tax</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Generate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="company-reg">
+          <div class="all-row-label">Company Reg</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Generate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="paye">
+          <div class="all-row-label">PAYE</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Generate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="uif">
+          <div class="all-row-label">UIF</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Generate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="sdl">
+          <div class="all-row-label">SDL</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Generate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="labour-uif">
+          <div class="all-row-label">Labour UIF</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Generate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+      </div>
+      <div class="paste-summary" id="paste-summary"></div>
+    </div>
+
     <!-- SA ID Panel -->
-    <div class="panel active" id="panel-sa-id" role="tabpanel">
+    <div class="panel" id="panel-sa-id" role="tabpanel">
       <div class="filters">
         <div class="filter-row">
           <label>Year From
