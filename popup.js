@@ -6,6 +6,7 @@ import { generateUIF } from './js/generators/uif.js';
 import { generateSDL } from './js/generators/sdl.js';
 import { generateLabourUIF } from './js/generators/labour-uif.js';
 import { copyToClipboard } from './js/utils/helpers.js';
+import { pasteIntoActiveTab } from './js/paste/paste-in-form.js';
 
 // --- All-view state and helpers --------------------------------------------
 
@@ -65,6 +66,52 @@ function regenerateRow(type) {
   }
 }
 
+function generateAll() {
+  for (const type of ALL_TYPES) {
+    if (type === 'uif' || type === 'sdl') continue; // handled by the triple
+    if (type === 'paye') {
+      regenerateEmployerTriple();
+    } else {
+      setRowValue(type, generateOne(type));
+    }
+  }
+}
+
+function collectAllValues() {
+  const out = {};
+  for (const type of ALL_TYPES) {
+    const v = getRowValue(type);
+    if (v) out[type] = v;
+  }
+  return out;
+}
+
+const TYPE_LABELS = {
+  'sa-id':       'ID number',
+  'income-tax':  'Income Tax',
+  'company-reg': 'Company Reg',
+  'paye':        'PAYE',
+  'uif':         'UIF',
+  'sdl':         'SDL',
+  'labour-uif':  'Labour UIF',
+};
+
+function showPasteSummary({ matched, missed }) {
+  const el = document.getElementById('paste-summary');
+  const total = matched.length + missed.length;
+  if (total === 0) {
+    el.textContent = 'Nothing to paste — generate values first.';
+  } else {
+    const matchedLabels = matched.map(t => TYPE_LABELS[t]).join(', ') || '—';
+    const missedLabels  = missed.map(t => TYPE_LABELS[t]).join(', ');
+    el.textContent =
+      `Pasted ${matched.length} of ${total}: ${matchedLabels}` +
+      (missed.length ? `. Not found: ${missedLabels}.` : '.');
+  }
+  clearTimeout(showPasteSummary._t);
+  showPasteSummary._t = setTimeout(() => { el.textContent = ''; }, 6000);
+}
+
 // Tab switching
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -99,6 +146,26 @@ document.querySelectorAll('.all-row .btn-row-copy').forEach(btn => {
     const value = getRowValue(type);
     if (!value) return;
     copyToClipboard(value).then(() => flashCopied(btn));
+  });
+});
+
+document.querySelector('.btn-generate-all')
+  .addEventListener('click', () => generateAll());
+
+document.querySelector('.btn-paste-all')
+  .addEventListener('click', async () => {
+    const values = collectAllValues();
+    const result = await pasteIntoActiveTab(values);
+    showPasteSummary(result);
+  });
+
+document.querySelectorAll('.all-row .btn-row-paste').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const type = btn.closest('.all-row').dataset.type;
+    const value = getRowValue(type);
+    if (!value) return;
+    const result = await pasteIntoActiveTab({ [type]: value });
+    showPasteSummary(result);
   });
 });
 
