@@ -112,6 +112,13 @@ function showPasteSummary({ matched, missed }) {
   showPasteSummary._t = setTimeout(() => { el.textContent = ''; }, 6000);
 }
 
+function showPasteError() {
+  const el = document.getElementById('paste-summary');
+  el.textContent = "Couldn't paste — this page doesn't allow scripted form fills.";
+  clearTimeout(showPasteSummary._t);
+  showPasteSummary._t = setTimeout(() => { el.textContent = ''; }, 6000);
+}
+
 // Tab switching
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -155,8 +162,12 @@ document.querySelector('.btn-generate-all')
 document.querySelector('.btn-paste-all')
   .addEventListener('click', async () => {
     const values = collectAllValues();
-    const result = await pasteIntoActiveTab(values);
-    showPasteSummary(result);
+    try {
+      const result = await pasteIntoActiveTab(values);
+      showPasteSummary(result);
+    } catch {
+      showPasteError();
+    }
   });
 
 document.querySelectorAll('.all-row .btn-row-paste').forEach(btn => {
@@ -164,8 +175,12 @@ document.querySelectorAll('.all-row .btn-row-paste').forEach(btn => {
     const type = btn.closest('.all-row').dataset.type;
     const value = getRowValue(type);
     if (!value) return;
-    const result = await pasteIntoActiveTab({ [type]: value });
-    showPasteSummary(result);
+    try {
+      const result = await pasteIntoActiveTab({ [type]: value });
+      showPasteSummary(result);
+    } catch {
+      showPasteError();
+    }
   });
 });
 
