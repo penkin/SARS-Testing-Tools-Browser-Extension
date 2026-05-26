@@ -119,13 +119,25 @@ function showPasteError() {
   showPasteSummary._t = setTimeout(() => { el.textContent = ''; }, 6000);
 }
 
-// Tab switching
+// Tab switching — selecting a tab auto-generates fresh values for it.
+// Clicking the already-active tab is a no-op (avoids surprise regen).
+function triggerTabGenerate(type) {
+  if (type === 'all') {
+    generateAll();
+    return;
+  }
+  const btn = document.querySelector(`.btn-generate[data-generator="${type}"]`);
+  if (btn) btn.click();
+}
+
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
+    if (tab.classList.contains('active')) return;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById(`panel-${tab.dataset.tab}`).classList.add('active');
+    triggerTabGenerate(tab.dataset.tab);
   });
 });
 
@@ -287,3 +299,6 @@ function flashCopied(btn) {
     btn.classList.remove('copied');
   }, 1200);
 }
+
+// Auto-generate the default (All) view on popup open so users never see a blank tab.
+generateAll();
