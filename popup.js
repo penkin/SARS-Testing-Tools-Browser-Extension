@@ -4,6 +4,7 @@ import { generateCompanyReg } from './js/generators/company-reg.js';
 import { generatePAYE } from './js/generators/paye.js';
 import { generateUIF } from './js/generators/uif.js';
 import { generateSDL } from './js/generators/sdl.js';
+import { generateLabourUIF } from './js/generators/labour-uif.js';
 import { copyToClipboard } from './js/utils/helpers.js';
 
 // Tab switching
@@ -62,6 +63,10 @@ function generate(type) {
     case 'sdl':
       return generateSDL({
         count: Number(document.getElementById('sdl-count').value),
+      });
+    case 'labour-uif':
+      return generateLabourUIF({
+        count: Number(document.getElementById('luif-count').value),
       });
     default:
       return [];

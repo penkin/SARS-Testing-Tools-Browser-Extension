@@ -19,6 +19,7 @@
       <button class="tab" role="tab" data-tab="paye">PAYE</button>
       <button class="tab" role="tab" data-tab="uif">UIF</button>
       <button class="tab" role="tab" data-tab="sdl">SDL</button>
+      <button class="tab" role="tab" data-tab="labour-uif">Labour UIF</button>
     </nav>
 
     <!-- SA ID Panel -->
@@ -206,6 +207,25 @@
       </div>
       <button class="btn-generate" data-generator="sdl">Generate</button>
       <div class="results" id="results-sdl"></div>
+    </div>
+
+    <!-- Labour UIF Panel -->
+    <div class="panel" id="panel-labour-uif" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Count
+            <select id="luif-count">
+              <option value="1">1</option>
+              <option value="3" selected>3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="labour-uif">Generate</button>
+      <div class="results" id="results-labour-uif"></div>
     </div>
   </div>
 
