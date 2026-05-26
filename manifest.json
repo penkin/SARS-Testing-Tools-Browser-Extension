@@ -3,7 +3,7 @@
   "name": "SARS Testing Tools",
   "version": "0.1.0",
   "description": "Generate valid South African tax reference numbers for testing — SA ID, Income Tax, Company Reg, PAYE, UIF, SDL.",
-  "permissions": ["clipboardWrite"],
+  "permissions": ["clipboardWrite", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
