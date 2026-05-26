@@ -252,57 +252,116 @@ header h1 {
   gap: 8px;
   margin-bottom: 12px;
 }
-.all-actions button {
+
+.all-actions .btn-generate-all,
+.all-actions .btn-paste-all {
   flex: 1;
+  padding: 9px;
+  border: none;
+  border-radius: 6px;
+  background: #1a5276;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.all-actions .btn-generate-all:hover,
+.all-actions .btn-paste-all:hover {
+  background: #1b6b9a;
+}
+
+.all-actions .btn-generate-all:active,
+.all-actions .btn-paste-all:active {
+  background: #154360;
 }
 
 .all-rows {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 3px;
 }
 
 .all-row {
   display: grid;
-  grid-template-columns: 90px 1fr auto;
+  grid-template-columns: 85px 1fr auto;
   align-items: center;
   gap: 8px;
   padding: 6px 8px;
-  border: 1px solid #e2e6ea;
-  border-radius: 6px;
-  background: #fafbfc;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
 }
 
 .all-row-label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: #2a3a52;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .all-row-value {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: 13px;
-  color: #1b2333;
+  color: #1a1a1a;
   min-height: 18px;
   word-break: break-all;
+  user-select: all;
 }
+
 .all-row-value:empty::before {
   content: attr(data-empty);
-  color: #aab2bd;
+  color: #999;
 }
 
 .all-row-actions {
   display: flex;
   gap: 4px;
+  flex-shrink: 0;
 }
+
 .all-row-actions button {
-  padding: 3px 8px;
+  padding: 2px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  background: #fff;
   font-size: 11px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.all-row-actions button:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #bbb;
+}
+
+.all-row-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.all-row-actions button.copied {
+  background: #d4edda;
+  border-color: #28a745;
+  color: #155724;
 }
 
 .paste-summary {
   margin-top: 12px;
-  font-size: 12px;
-  color: #4a5568;
+  font-size: 11px;
+  font-weight: 500;
+  color: #555;
   min-height: 16px;
+  letter-spacing: 0.2px;
+}
+
+.paste-summary:not(:empty) {
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
 }
