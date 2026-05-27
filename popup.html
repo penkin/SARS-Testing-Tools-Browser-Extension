@@ -13,87 +13,88 @@
     </header>
 
     <nav class="tabs" role="tablist">
-      <button class="tab active" role="tab" data-tab="sa-id">SA ID</button>
-      <button class="tab" role="tab" data-tab="income-tax">Income Tax</button>
+      <button class="tab active" role="tab" data-tab="all">All</button>
       <button class="tab" role="tab" data-tab="company-reg">Company Reg</button>
+      <button class="tab" role="tab" data-tab="income-tax">Income Tax</button>
+      <button class="tab" role="tab" data-tab="labour-uif">Labour UIF</button>
       <button class="tab" role="tab" data-tab="paye">PAYE</button>
-      <button class="tab" role="tab" data-tab="uif">UIF</button>
+      <button class="tab" role="tab" data-tab="sa-id">SA ID</button>
       <button class="tab" role="tab" data-tab="sdl">SDL</button>
+      <button class="tab" role="tab" data-tab="uif">UIF</button>
     </nav>
 
-    <!-- SA ID Panel -->
-    <div class="panel active" id="panel-sa-id" role="tabpanel">
-      <div class="filters">
-        <div class="filter-row">
-          <label>Year From
-            <input type="number" id="said-year-from" value="1950" min="1900" max="2025">
-          </label>
-          <label>Year To
-            <input type="number" id="said-year-to" value="2005" min="1900" max="2025">
-          </label>
+    <!-- All Panel -->
+    <div class="panel active" id="panel-all" role="tabpanel">
+      <div class="all-actions">
+        <button class="btn-generate-all">Regenerate All</button>
+        <button class="btn-paste-all">Paste All in form</button>
+      </div>
+      <div class="all-rows">
+        <div class="all-row" data-type="sa-id">
+          <div class="all-row-label">SA ID</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Regenerate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
         </div>
-        <div class="filter-row">
-          <label>Specific Date
-            <input type="date" id="said-specific-date">
-          </label>
+        <div class="all-row" data-type="income-tax">
+          <div class="all-row-label">Income Tax</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Regenerate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
         </div>
-        <div class="filter-row">
-          <label>Gender
-            <select id="said-gender">
-              <option value="any">Any</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </label>
-          <label>Citizenship
-            <select id="said-citizenship">
-              <option value="citizen">SA Citizen</option>
-              <option value="resident">Permanent Resident</option>
-              <option value="any">Any</option>
-            </select>
-          </label>
+        <div class="all-row" data-type="company-reg">
+          <div class="all-row-label">Company Reg</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Regenerate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
         </div>
-        <div class="filter-row">
-          <label>Count
-            <select id="said-count">
-              <option value="1">1</option>
-              <option value="5">5</option>
-              <option value="10" selected>10</option>
-              <option value="25">25</option>
-            </select>
-          </label>
+        <div class="all-row" data-type="paye">
+          <div class="all-row-label">PAYE</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Regenerate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="uif">
+          <div class="all-row-label">UIF</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Regenerate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="sdl">
+          <div class="all-row-label">SDL</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Regenerate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
+        </div>
+        <div class="all-row" data-type="labour-uif">
+          <div class="all-row-label">Labour UIF</div>
+          <div class="all-row-value" data-empty="—"></div>
+          <div class="all-row-actions">
+            <button class="btn-row-generate">Regenerate</button>
+            <button class="btn-row-copy" disabled>Copy</button>
+            <button class="btn-row-paste" disabled>Paste</button>
+          </div>
         </div>
       </div>
-      <button class="btn-generate" data-generator="sa-id">Generate</button>
-      <div class="results" id="results-sa-id"></div>
-    </div>
-
-    <!-- Income Tax Panel -->
-    <div class="panel" id="panel-income-tax" role="tabpanel">
-      <div class="filters">
-        <div class="filter-row">
-          <label>Starting Digit
-            <select id="itax-start">
-              <option value="any">Any</option>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="9">9</option>
-            </select>
-          </label>
-          <label>Count
-            <select id="itax-count">
-              <option value="1">1</option>
-              <option value="5">5</option>
-              <option value="10" selected>10</option>
-              <option value="25">25</option>
-            </select>
-          </label>
-        </div>
-      </div>
-      <button class="btn-generate" data-generator="income-tax">Generate</button>
-      <div class="results" id="results-income-tax"></div>
+      <div class="paste-summary" id="paste-summary"></div>
     </div>
 
     <!-- Company Reg Panel -->
@@ -132,15 +133,64 @@
           <label>Count
             <select id="creg-count">
               <option value="1">1</option>
+              <option value="3" selected>3</option>
               <option value="5">5</option>
-              <option value="10" selected>10</option>
+              <option value="10">10</option>
               <option value="25">25</option>
             </select>
           </label>
         </div>
       </div>
-      <button class="btn-generate" data-generator="company-reg">Generate</button>
+      <button class="btn-generate" data-generator="company-reg">Regenerate</button>
       <div class="results" id="results-company-reg"></div>
+    </div>
+
+    <!-- Income Tax Panel -->
+    <div class="panel" id="panel-income-tax" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Starting Digit
+            <select id="itax-start">
+              <option value="any">Any</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="9">9</option>
+            </select>
+          </label>
+          <label>Count
+            <select id="itax-count">
+              <option value="1">1</option>
+              <option value="3" selected>3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="income-tax">Regenerate</button>
+      <div class="results" id="results-income-tax"></div>
+    </div>
+
+    <!-- Labour UIF Panel -->
+    <div class="panel" id="panel-labour-uif" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Count
+            <select id="luif-count">
+              <option value="1">1</option>
+              <option value="3" selected>3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="labour-uif">Regenerate</button>
+      <div class="results" id="results-labour-uif"></div>
     </div>
 
     <!-- PAYE Panel -->
@@ -161,33 +211,64 @@
           <label>Count
             <select id="paye-count">
               <option value="1">1</option>
+              <option value="3" selected>3</option>
               <option value="5">5</option>
-              <option value="10" selected>10</option>
+              <option value="10">10</option>
               <option value="25">25</option>
             </select>
           </label>
         </div>
       </div>
-      <button class="btn-generate" data-generator="paye">Generate</button>
+      <button class="btn-generate" data-generator="paye">Regenerate</button>
       <div class="results" id="results-paye"></div>
     </div>
 
-    <!-- UIF Panel -->
-    <div class="panel" id="panel-uif" role="tabpanel">
+    <!-- SA ID Panel -->
+    <div class="panel" id="panel-sa-id" role="tabpanel">
       <div class="filters">
         <div class="filter-row">
+          <label>Year From
+            <input type="number" id="said-year-from" value="1950" min="1900" max="2025">
+          </label>
+          <label>Year To
+            <input type="number" id="said-year-to" value="2005" min="1900" max="2025">
+          </label>
+        </div>
+        <div class="filter-row">
+          <label>Specific Date
+            <input type="date" id="said-specific-date">
+          </label>
+        </div>
+        <div class="filter-row">
+          <label>Gender
+            <select id="said-gender">
+              <option value="any">Any</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </label>
+          <label>Citizenship
+            <select id="said-citizenship">
+              <option value="citizen">SA Citizen</option>
+              <option value="resident">Permanent Resident</option>
+              <option value="any">Any</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-row">
           <label>Count
-            <select id="uif-count">
+            <select id="said-count">
               <option value="1">1</option>
+              <option value="3" selected>3</option>
               <option value="5">5</option>
-              <option value="10" selected>10</option>
+              <option value="10">10</option>
               <option value="25">25</option>
             </select>
           </label>
         </div>
       </div>
-      <button class="btn-generate" data-generator="uif">Generate</button>
-      <div class="results" id="results-uif"></div>
+      <button class="btn-generate" data-generator="sa-id">Regenerate</button>
+      <div class="results" id="results-sa-id"></div>
     </div>
 
     <!-- SDL Panel -->
@@ -197,15 +278,35 @@
           <label>Count
             <select id="sdl-count">
               <option value="1">1</option>
+              <option value="3" selected>3</option>
               <option value="5">5</option>
-              <option value="10" selected>10</option>
+              <option value="10">10</option>
               <option value="25">25</option>
             </select>
           </label>
         </div>
       </div>
-      <button class="btn-generate" data-generator="sdl">Generate</button>
+      <button class="btn-generate" data-generator="sdl">Regenerate</button>
       <div class="results" id="results-sdl"></div>
+    </div>
+
+    <!-- UIF Panel -->
+    <div class="panel" id="panel-uif" role="tabpanel">
+      <div class="filters">
+        <div class="filter-row">
+          <label>Count
+            <select id="uif-count">
+              <option value="1">1</option>
+              <option value="3" selected>3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <button class="btn-generate" data-generator="uif">Regenerate</button>
+      <div class="results" id="results-uif"></div>
     </div>
   </div>
 
