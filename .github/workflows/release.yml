@@ -24,6 +24,11 @@ jobs:
           fi
           echo "Version: $MANIFEST_VERSION"
 
+      - name: Lint for Firefox (web-ext)
+        run: |
+          npx --yes web-ext@latest lint \
+            --ignore-files "**/*.test.js" "test-fixture.html" "package.json" "docs/**" "**/*.md" ".github/**" "chrome-web-store-description.txt" "web-ext-artifacts/**"
+
       - name: Build zip for Chrome Web Store
         run: |
           ZIP_NAME="sars-testing-tools-${GITHUB_REF_NAME}.zip"
@@ -44,3 +49,15 @@ jobs:
         with:
           files: ${{ env.ZIP_NAME }}
           generate_release_notes: true
+
+      - name: Submit to AMO (Firefox listed)
+        continue-on-error: true   # AMO listed review is async; sign exits non-zero on review timeout
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          npx --yes web-ext@latest sign \
+            --channel listed \
+            --api-key "$AMO_JWT_ISSUER" \
+            --api-secret "$AMO_JWT_SECRET" \
+            --ignore-files "**/*.test.js" "test-fixture.html" "package.json" "docs/**" "**/*.md" ".github/**" "chrome-web-store-description.txt" "web-ext-artifacts/**"
