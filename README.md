@@ -41,6 +41,10 @@ The **Paste All in form** and per-row **Paste** buttons fill matching inputs on 
 2. Extract it
 3. Load as unpacked extension (same steps as above)
 
+### Firefox
+
+Once published, install from [addons.mozilla.org](https://addons.mozilla.org). For local development, open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…**, and select `manifest.json` in the project folder. (Temporary add-ons are removed when Firefox restarts.)
+
 ## Usage
 
 Click the extension icon to open the popup. The **All** tab is the default landing view — selecting any tab auto-generates fresh values for it. Use **Copy** to grab one value, **Copy All** to grab a batch, **Paste** / **Paste All in form** to fill matching fields on the page you're viewing.
@@ -118,7 +122,7 @@ Worked example for `1234567`: products `1, 4, 12, 20, 35, 48, 14` → mod 11 `1,
    git tag v1.x.x
    git push origin main --tags
    ```
-3. The GitHub Actions workflow builds a Chrome Web Store–ready zip and attaches it to the release.
+3. The GitHub Actions workflow attaches a Chrome Web Store–ready zip to the GitHub Release and submits the **listed** add-on to [addons.mozilla.org](https://addons.mozilla.org) via `web-ext` (using the `AMO_JWT_ISSUER` / `AMO_JWT_SECRET` repository secrets). Both stores ship from the same `manifest.json`.
 
 ## Disclaimer
 
