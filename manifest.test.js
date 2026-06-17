@@ -12,6 +12,6 @@ test('manifest declares the Firefox gecko block for AMO', () => {
   const gecko = manifest.browser_specific_settings?.gecko;
   assert.ok(gecko, 'browser_specific_settings.gecko must exist');
   assert.equal(gecko.id, 'sars-testing-tools@penkin.me');
-  assert.equal(gecko.strict_min_version, '115.0');
+  assert.equal(gecko.strict_min_version, '140.0');
   assert.deepEqual(gecko.data_collection_permissions, { required: ['none'] });
 });
