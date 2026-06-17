@@ -66,7 +66,7 @@ test('manifest declares the Firefox gecko block for AMO', () => {
   const gecko = manifest.browser_specific_settings?.gecko;
   assert.ok(gecko, 'browser_specific_settings.gecko must exist');
   assert.equal(gecko.id, 'sars-testing-tools@penkin.me');
-  assert.equal(gecko.strict_min_version, '115.0');
+  assert.equal(gecko.strict_min_version, '140.0');
   assert.deepEqual(gecko.data_collection_permissions, { required: ['none'] });
 });
 ```
@@ -84,7 +84,7 @@ Add this top-level key to `manifest.json` (e.g. after the `icons` block; mind th
   "browser_specific_settings": {
     "gecko": {
       "id": "sars-testing-tools@penkin.me",
-      "strict_min_version": "115.0",
+      "strict_min_version": "140.0",
       "data_collection_permissions": { "required": ["none"] }
     }
   }
@@ -288,7 +288,7 @@ A version tag triggers `.github/workflows/release.yml`, which (1) zips the exten
 In the **"Manifest constraints"** section, add a sentence about cross-browser support:
 
 ```markdown
-The manifest also carries `browser_specific_settings.gecko` (id `sars-testing-tools@penkin.me`, `strict_min_version` 115.0, no data collection) so the same file installs on Firefox — Chrome ignores this key. The only API-divergent code is `js/paste/paste-in-form.js`, which resolves `globalThis.browser ?? globalThis.chrome` into `ext` so its `tabs`/`scripting` calls return promises in both browsers; any new code touching extension APIs must do the same.
+The manifest also carries `browser_specific_settings.gecko` (id `sars-testing-tools@penkin.me`, `strict_min_version` 140.0, no data collection) so the same file installs on Firefox — Chrome ignores this key. The only API-divergent code is `js/paste/paste-in-form.js`, which resolves `globalThis.browser ?? globalThis.chrome` into `ext` so its `tabs`/`scripting` calls return promises in both browsers; any new code touching extension APIs must do the same.
 ```
 
 - [ ] **Step 2: Update `README.md`**

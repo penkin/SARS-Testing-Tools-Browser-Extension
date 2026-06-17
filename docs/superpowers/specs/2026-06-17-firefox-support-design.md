@@ -38,15 +38,15 @@ Add a Firefox-only block to the existing single manifest (Chrome ignores it):
 "browser_specific_settings": {
   "gecko": {
     "id": "sars-testing-tools@penkin.me",
-    "strict_min_version": "115.0",
+    "strict_min_version": "140.0",
     "data_collection_permissions": { "required": ["none"] }
   }
 }
 ```
 
 - **`id`** — required for AMO (Mozilla does not assign one). Email-style on the personal `penkin.me` domain; stable, unique, never user-visible.
-- **`strict_min_version` `115.0`** — ESR baseline, comfortably past Firefox's MV3 + `action` + `scripting.executeScript({func})` support.
-- **`data_collection_permissions: { required: ["none"] }`** — declares the add-on collects no data (it doesn't); a recent AMO submission requirement.
+- **`strict_min_version` `140.0`** — Firefox ESR that natively supports the `data_collection_permissions` consent key. Originally `115.0`, but `web-ext lint` flagged that the consent key is only supported from Firefox 140; the owner chose to raise the floor to 140 so the manifest is internally consistent and warning-free. Drops Firefox < 140.
+- **`data_collection_permissions: { required: ["none"] }`** — declares the add-on collects no data (it doesn't); a recent AMO submission requirement, supported from Firefox 140.
 
 No other manifest changes. `action`, `clipboardWrite`, `activeTab`, `scripting` are all supported in Firefox MV3.
 
