@@ -1,5 +1,9 @@
 import { FIELD_KEYWORDS } from './field-keywords.js';
 
+// Firefox exposes promise-based `browser.*`; Chrome exposes promise-based
+// `chrome.*` (MV3) and no `browser`. Prefer `browser`, fall back to `chrome`.
+const ext = globalThis.browser ?? globalThis.chrome;
+
 /**
  * Pastes the supplied generated values into matching inputs on the active tab.
  *
@@ -7,10 +11,10 @@ import { FIELD_KEYWORDS } from './field-keywords.js';
  * @returns {Promise<{matched: string[], missed: string[]}>}
  */
 export async function pasteIntoActiveTab(values) {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const [tab] = await ext.tabs.query({ active: true, currentWindow: true });
   if (!tab?.id) return { matched: [], missed: Object.keys(values) };
 
-  const [{ result } = {}] = await chrome.scripting.executeScript({
+  const [{ result } = {}] = await ext.scripting.executeScript({
     target: { tabId: tab.id },
     func: injectFill,
     args: [values, FIELD_KEYWORDS],
