@@ -1,4 +1,4 @@
-name: Build & Release Chrome Extension
+name: Build & Release Extension (Chrome + Firefox)
 
 on:
   push:
@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+      AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
 
     steps:
       - uses: actions/checkout@v4
@@ -29,6 +32,16 @@ jobs:
           npx --yes web-ext@latest lint \
             --ignore-files "**/*.test.js" "test-fixture.html" "package.json" "docs/**" "**/*.md" ".github/**" "chrome-web-store-description.txt" "web-ext-artifacts/**"
 
+      - name: Build Firefox .xpi
+        run: |
+          npx --yes web-ext@latest build --overwrite-dest \
+            --ignore-files "**/*.test.js" "test-fixture.html" "package.json" "docs/**" "**/*.md" ".github/**" "chrome-web-store-description.txt" "web-ext-artifacts/**"
+          XPI_NAME="sars-testing-tools-firefox-${GITHUB_REF_NAME}.xpi"
+          cp web-ext-artifacts/*.zip "$XPI_NAME"
+          echo "XPI_NAME=$XPI_NAME" >> "$GITHUB_ENV"
+          echo "Built $XPI_NAME"
+          unzip -l "$XPI_NAME"
+
       - name: Build zip for Chrome Web Store
         run: |
           ZIP_NAME="sars-testing-tools-${GITHUB_REF_NAME}.zip"
@@ -47,14 +60,14 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ env.ZIP_NAME }}
+          files: |
+            ${{ env.ZIP_NAME }}
+            ${{ env.XPI_NAME }}
           generate_release_notes: true
 
       - name: Submit to AMO (Firefox listed)
-        continue-on-error: true   # AMO listed review is async; sign exits non-zero on review timeout
-        env:
-          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
-          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        if: ${{ env.AMO_JWT_ISSUER != '' }}   # only runs when AMO credentials are configured
+        continue-on-error: true                # AMO listed review is async; sign exits non-zero on review timeout
         run: |
           npx --yes web-ext@latest sign \
             --channel listed \

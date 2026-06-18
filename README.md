@@ -43,7 +43,12 @@ The **Paste All in form** and per-row **Paste** buttons fill matching inputs on 
 
 ### Firefox
 
-Once published, install from [addons.mozilla.org](https://addons.mozilla.org). For local development, open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…**, and select `manifest.json` in the project folder. (Temporary add-ons are removed when Firefox restarts.)
+Firefox builds are published as an **unsigned `.xpi`** attached to each [Release](../../releases) (`sars-testing-tools-firefox-vX.Y.Z.xpi`). Mozilla requires extensions to be signed for a permanent install on **stable** Firefox, so install the `.xpi` one of these ways:
+
+- **Temporary — any Firefox:** open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…**, and select the `.xpi` (or `manifest.json` from a source checkout). The add-on is removed when Firefox restarts.
+- **Permanent — Firefox Developer Edition / Nightly / ESR:** in `about:config` set `xpinstall.signatures.required` to `false`, then drag the `.xpi` onto Firefox (or **Menu → Add-ons → ⚙ → Install Add-on From File…**) to install it permanently.
+
+> Stable/release Firefox will **not** permanently install an unsigned `.xpi`. A Mozilla-signed build (via [addons.mozilla.org](https://addons.mozilla.org)) is required for that.
 
 ## Usage
 
@@ -122,7 +127,7 @@ Worked example for `1234567`: products `1, 4, 12, 20, 35, 48, 14` → mod 11 `1,
    git tag v1.x.x
    git push origin main --tags
    ```
-3. The GitHub Actions workflow attaches a Chrome Web Store–ready zip to the GitHub Release and submits the **listed** add-on to [addons.mozilla.org](https://addons.mozilla.org) via `web-ext` (using the `AMO_JWT_ISSUER` / `AMO_JWT_SECRET` repository secrets). Both stores ship from the same `manifest.json`.
+3. The GitHub Actions workflow attaches two files to the GitHub Release from the same `manifest.json` — a Chrome Web Store zip and an unsigned Firefox `.xpi`. If the `AMO_JWT_ISSUER` / `AMO_JWT_SECRET` repository secrets are configured, it also submits the build to [addons.mozilla.org](https://addons.mozilla.org) via `web-ext` (that step is skipped when the secrets are absent).
 
 ## Disclaimer
 
