@@ -41,6 +41,15 @@ The **Paste All in form** and per-row **Paste** buttons fill matching inputs on 
 2. Extract it
 3. Load as unpacked extension (same steps as above)
 
+### Firefox
+
+Firefox builds are published as an **unsigned `.xpi`** attached to each [Release](../../releases) (`sars-testing-tools-firefox-vX.Y.Z.xpi`). Mozilla requires extensions to be signed for a permanent install on **stable** Firefox, so install the `.xpi` one of these ways:
+
+- **Temporary — any Firefox:** open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…**, and select the `.xpi` (or `manifest.json` from a source checkout). The add-on is removed when Firefox restarts.
+- **Permanent — Firefox Developer Edition / Nightly / ESR:** in `about:config` set `xpinstall.signatures.required` to `false`, then drag the `.xpi` onto Firefox (or **Menu → Add-ons → ⚙ → Install Add-on From File…**) to install it permanently.
+
+> Stable/release Firefox will **not** permanently install an unsigned `.xpi`. A Mozilla-signed build (via [addons.mozilla.org](https://addons.mozilla.org)) is required for that.
+
 ## Usage
 
 Click the extension icon to open the popup. The **All** tab is the default landing view — selecting any tab auto-generates fresh values for it. Use **Copy** to grab one value, **Copy All** to grab a batch, **Paste** / **Paste All in form** to fill matching fields on the page you're viewing.
@@ -118,7 +127,7 @@ Worked example for `1234567`: products `1, 4, 12, 20, 35, 48, 14` → mod 11 `1,
    git tag v1.x.x
    git push origin main --tags
    ```
-3. The GitHub Actions workflow builds a Chrome Web Store–ready zip and attaches it to the release.
+3. The GitHub Actions workflow attaches two files to the GitHub Release from the same `manifest.json` — a Chrome Web Store zip and an unsigned Firefox `.xpi`. If the `AMO_JWT_ISSUER` / `AMO_JWT_SECRET` repository secrets are configured, it also submits the build to [addons.mozilla.org](https://addons.mozilla.org) via `web-ext` (that step is skipped when the secrets are absent).
 
 ## Disclaimer
 

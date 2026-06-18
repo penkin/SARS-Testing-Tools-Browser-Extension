@@ -1,4 +1,6 @@
 .DS_Store
 *.zip
+*.xpi
+web-ext-artifacts/
 test-fixture.html
 chrome-web-store-description.txt
